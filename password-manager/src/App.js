@@ -12,18 +12,18 @@ class App extends Component {
     website: '',
     username: '',
     password: '',
-    isShow: false,
+    isShowPassword: false,
   }
 
-  listenWebsite = e => {
+  onChangeWebsite = e => {
     this.setState({website: e.target.value})
   }
 
-  listenUsername = e => {
+  onChangeUsername = e => {
     this.setState({username: e.target.value})
   }
 
-  listenPassword = e => {
+  onChangePassword = e => {
     this.setState({password: e.target.value})
   }
 
@@ -52,9 +52,9 @@ class App extends Component {
 
   showPassword = e => {
     if (e.target.checked) {
-      this.setState({isShow: true})
+      this.setState({isShowPassword: true})
     } else {
-      this.setState({isShow: false})
+      this.setState({isShowPassword: false})
     }
   }
 
@@ -75,16 +75,26 @@ class App extends Component {
       username,
       password,
       latestList,
-      isShow,
+      isShowPassword,
       searchInput,
     } = this.state
+    
     let {isTrue} = this.state
+    
+    
     const newList = latestList.filter(eachValue =>
       eachValue.websiteName.toLowerCase().includes(searchInput.toLowerCase()),
     )
-    if (newList.length === 0) {
+
+    
+    // if (newList.length === 0) {
+    //   this.setState({isTrue:false})
+    // } else {
+    //   this.setState({isTrue:true})
+    // }
+    if (newList.length === 0){
       isTrue = false
-    } else {
+    }else{
       isTrue = true
     }
     return (
@@ -112,7 +122,7 @@ class App extends Component {
                 type="text"
                 className="input-element"
                 placeholder="Enter Website"
-                onChange={this.listenWebsite}
+                onChange={this.onChangeWebsite}
                 value={website}
               />
             </div>
@@ -127,7 +137,7 @@ class App extends Component {
                 type="text"
                 className="input-element"
                 placeholder="Enter Username"
-                onChange={this.listenUsername}
+                onChange={this.onChangeUsername}
                 value={username}
               />
             </div>
@@ -141,7 +151,7 @@ class App extends Component {
                 type="password"
                 className="input-element"
                 placeholder="Enter Password"
-                onChange={this.listenPassword}
+                onChange={this.onChangePassword}
                 value={password}
               />
             </div>
@@ -158,8 +168,8 @@ class App extends Component {
         <div className="sub-div2">
           <div className="first-div">
             <div className="your-password">
-              <h1 className="heading-name">Your Passwords</h1>
-              <p className="colored-text">{newList.length}</p>
+              <h1 className="heading-name">Your Passwords  <span className="colored-text">{newList.length}</span></h1>
+             
             </div>
             <div className="search-holder">
               <img
@@ -169,7 +179,7 @@ class App extends Component {
               />
               <input
                 type="search"
-                className="input-element"
+                className="input-element1"
                 placeholder="Search"
                 onChange={this.searchList}
                 value={searchInput}
@@ -208,14 +218,14 @@ class App extends Component {
                   <div className="list-content">
                     <p className="website">{eachValue.websiteName}</p>
                     <p className="website">{eachValue.userName}</p>
-                    {!isShow && (
+                    {!isShowPassword && (
                       <img
                         src="https://assets.ccbp.in/frontend/react-js/password-manager-stars-img.png"
                         className="stars-image"
                         alt="stars"
                       />
                     )}
-                    {isShow && <p className="website">{eachValue.Password}</p>}
+                    {isShowPassword && <p className="website">{eachValue.Password}</p>}
                   </div>
                   <button
                     type="button"

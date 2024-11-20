@@ -37,7 +37,7 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  height: 50vh;
+  height: 100%;
   background-color: #5763a5;
   padding: 40px;
   border-radius: 5px;
@@ -106,7 +106,7 @@ body {
 }
 
 .sub-div1-image1 {
-  width: 25%;
+  width: 300px;
   height: 100%;
 }
 .sub-div1-image2 {
@@ -139,6 +139,7 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .heading-name {
@@ -163,10 +164,23 @@ body {
   justify-content: flex-start;
   align-items: center;
   background-color: #f8fafc;
-  width: 180px;
+  width: 200px;
   height: 22px;
   border-radius: 2px;
   margin-bottom: 20px;
+}
+
+.input-element1 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-style: none;
+  outline: none;
+  border-left-style: solid;
+  border-left-color: #94a3b8;
+  border-left-width: 1px;
+  font-size: 10px;
+  padding: 5px;
 }
 
 hr {
@@ -329,3 +343,75 @@ hr {
     justify-content: center;
   }
 }
+
+
+@media screen and (max-width: 576px) {
+  .sub-div1 {
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
+  }
+  .sub-div1-image1 {
+    display: none;
+  }
+  .sub-div1-image2 {
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 18px;
+  }
+  .sub-div2 {
+    min-height: 50vh;
+  }
+  .result-container {
+    justify-content: center;
+  }
+  .input-element {
+    width: 100%;
+    height: 100%;
+    font-size: 6px;
+    padding: 5px;
+  }
+
+  .input-element1 {
+    width: 100%;
+    height: 100%;
+    font-size: 6px;
+    padding: 5px;
+  }
+  .search-holder {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100px;
+    height: 22px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    margin-left: 2px;
+  }
+
+  /* .sub-div2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 50vh;
+    max-height: 100%;
+    background-color: #5763a5;
+    padding: 20px;
+    border-radius: 5px;
+  } */
+
+  .main-container {
+  
+    padding: 20px;
+    min-height: 100vh;
+    max-height: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+  }
+}
+
