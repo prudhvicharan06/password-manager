@@ -1,37 +1,38 @@
-import {Component} from 'react'
-import {v4} from 'uuid'
+import { Component } from 'react';
+import { v4 } from 'uuid';
 
-import './App.css'
+import './App.css';
 
-const colorList = ['yellow', 'green', 'orange', 'brown', 'blue']
+const colorList = ['yellow', 'green', 'orange', 'brown', 'blue'];
 
 class App extends Component {
   state = {
-    isTrue: false,
+    isDataFound: false,
     latestList: [],
     website: '',
     username: '',
     password: '',
     isShowPassword: false,
-  }
+    searchInput: '',
+  };
 
   onChangeWebsite = e => {
-    this.setState({website: e.target.value})
-  }
+    this.setState({ website: e.target.value });
+  };
 
   onChangeUsername = e => {
-    this.setState({username: e.target.value})
-  }
+    this.setState({ username: e.target.value });
+  };
 
   onChangePassword = e => {
-    this.setState({password: e.target.value})
-  }
+    this.setState({ password: e.target.value });
+  };
 
   addContent = e => {
-    e.preventDefault()
-    const {username, website, password} = this.state
-    const initial = website.slice(0, 1).toUpperCase()
-    const classValue = colorList[Math.floor(Math.random() * 5)]
+    e.preventDefault();
+    const { username, website, password } = this.state;
+    const initial = website.slice(0, 1).toUpperCase();
+    const classValue = colorList[Math.floor(Math.random() * 5)];
     const newValues = {
       id: v4(),
       initialValue: initial,
@@ -39,64 +40,49 @@ class App extends Component {
       userName: username,
       Password: password,
       classAdd: classValue,
-    }
+    };
+
     this.setState(prevState => ({
       latestList: [...prevState.latestList, newValues],
       website: '',
       username: '',
       password: '',
-      isTrue: true,
+      isDataFound: true,
       searchInput: '',
-    }))
-  }
+    }));
+  };
 
   showPassword = e => {
-    if (e.target.checked) {
-      this.setState({isShowPassword: true})
-    } else {
-      this.setState({isShowPassword: false})
-    }
-  }
+    this.setState({ isShowPassword: e.target.checked });
+  };
 
   searchList = e => {
-    this.setState({searchInput: e.target.value})
-  }
+    
+    this.setState({ searchInput: e.target.value });
+    let {latestList} = this.state
+    if (latestList.length === 0){
+      this.setState({isDataFound:false})
+    }
+  };
 
   deleteItem = id => {
-    const {latestList} = this.state
-    const newList = latestList.filter(eachValue => eachValue.id !== id)
-    const caseOf = newList.length !== 0
-    this.setState({latestList: newList, isTrue: caseOf})
-  }
+    const { latestList } = this.state;
+    const newList = latestList.filter(eachValue => eachValue.id !== id);
+    this.setState({ latestList: newList, isDataFound: newList.length > 0 });
+  };
 
   render() {
-    const {
-      website,
-      username,
-      password,
-      latestList,
-      isShowPassword,
-      searchInput,
-    } = this.state
-    
-    let {isTrue} = this.state
-    
-    
-    const newList = latestList.filter(eachValue =>
-      eachValue.websiteName.toLowerCase().includes(searchInput.toLowerCase()),
-    )
+    const { website, username,password, latestList, isShowPassword, searchInput } = this.state;
 
-    
-    // if (newList.length === 0) {
-    //   this.setState({isTrue:false})
-    // } else {
-    //   this.setState({isTrue:true})
-    // }
-    if (newList.length === 0){
-      isTrue = false
-    }else{
-      isTrue = true
-    }
+    // here newList is the final list to display on container even if we search we get serached list else total list will display
+
+
+    const newList = latestList.filter(eachValue =>
+      eachValue.websiteName.toLowerCase().includes(searchInput.toLowerCase())
+    );
+   
+    const noResultsFound = newList.length === 0
+
     return (
       <div className="main-container">
         <img
@@ -198,7 +184,7 @@ class App extends Component {
               Show Passwords
             </label>
           </div>
-          {!isTrue && (
+          {noResultsFound && (
             <div className="empty-state">
               <img
                 src="https://assets.ccbp.in/frontend/react-js/no-passwords-img.png"
@@ -208,7 +194,7 @@ class App extends Component {
               <p className="no-passwords">No Passwords</p>
             </div>
           )}
-          {isTrue && (
+          {!noResultsFound && (
             <ul className="result-container">
               {newList.map(eachValue => (
                 <li className="item-list" id={eachValue.id} key={eachValue.id}>
@@ -250,3 +236,4 @@ class App extends Component {
 }
 
 export default App
+            
